@@ -19,13 +19,18 @@ class CVCard extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12), // Bordes redondeados
-          child: Image.asset(
+          child: Image.network(
             imagePath,
             width: imageSize,
             height: imageSize,
             fit: BoxFit.cover,
             errorBuilder: (context, error, stackTrace) {
-              return Icon(Icons.photo,size: 150);
+              return Image.network(
+              "https://jornadaautomocion.alumnes-monlau.com/storage/photos/por_defecto/user_default.png",
+              width: imageSize,
+              height: imageSize,
+              fit: BoxFit.cover,
+              );
             },
           ),
         ),

@@ -15,6 +15,10 @@ class _MapLayout extends State<MapLayout> {
     'assets/img/monlautech1.jpg','assets/img/monlautech2.jpg','assets/img/monlautech3.jpg',
     'assets/img/monlautech4.jpg','assets/img/monlautech5.jpg','assets/img/monlautech6.jpg'
   ];
+  final List<String> imgMaps =  [
+    "assets/img/Plano.png",
+    "assets/img/PlanoParking.png",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -63,16 +67,9 @@ class _MapLayout extends State<MapLayout> {
           width: 500,
           height: 270,
           child:
-              InteractiveViewer(
-             
-              panEnabled: true, // permite arrastrar
-              boundaryMargin: EdgeInsets.all(20),
-              minScale: 1.0,
-              maxScale: 4.0,
-              child: Image(image: AssetImage("assets/img/Plano.png")),
-              scaleEnabled: true,
-              
-            ),
+              Row(
+                children: [Expanded(child: CarrouselImg(imgList: imgMaps))],
+              )
         ),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
@@ -104,3 +101,4 @@ class _MapLayout extends State<MapLayout> {
     )));
   }
 }
+

@@ -55,7 +55,7 @@ class Proyecto {
       students.add(Estudents.fromJson(s,server));
     }
     if (students.length  == 0){
-      students.add(Estudents(0,"","","",false,"",""));
+      students.add(Estudents(0,"Por Defecto","Error","Error",false,"Error","Error"));
     }
 
     project.forEach((k,v){

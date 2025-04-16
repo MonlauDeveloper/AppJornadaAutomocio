@@ -17,6 +17,10 @@ class Companies{
       this.img_url
       );
   factory Companies.fromJson (Map<String, dynamic> com){
-    return Companies(com["companyName"]??"", User(com["asistenteNombre"]??"","",Role.COMPANIE), "",com["companyWeb"]??"",com["logo_url"]??"");
+    String server = "https://jornadaautomocion.alumnes-monlau.com/storage/photos/";
+    if (com["logo_url"].toString().contains("http")){
+      server ="";
+    }
+    return Companies(com["companyName"]??"", User(com["asistenteNombre"]??"","",Role.COMPANIE), "",com["companyWeb"]??"",server+com["logo_url"]);
   }
 }

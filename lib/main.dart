@@ -87,7 +87,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int _selectedIndex = 0;
   final PageController _pageController = PageController();
-
+  late Future<void> _loadFuture;
+  @override
+  void initState() {
+    _loadFuture = load();
+    super.initState();
+  }
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -96,53 +101,71 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    load();
-    return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          _homeScreen(),
-          ProjectsLayout(projects: projectos,proj_mng: proj_mng, monlauTech_mng: mont_mng, monlauTechPrj: monlautech),
-          MapLayout(),
-          SpeakersLayout(
-            ponencias: meets,
+@override
+Widget build(BuildContext context) {
+  return FutureBuilder(
+    future: _loadFuture,
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+      } else if (snapshot.hasError) {
+        return Scaffold(
+          body: Center(child: Text('Error: ${snapshot.error}')),
+        );
+      } else {
+        return Scaffold(
+          body: PageView(
+            controller: _pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              _homeScreen(),
+              ProjectsLayout(
+                projects: projectos,
+                proj_mng: proj_mng,
+                monlauTech_mng: mont_mng,
+                monlauTechPrj: monlautech,
+              ),
+              MapLayout(),
+              SpeakersLayout(ponencias: meets),
+              ExhibitorsLayout(companies: companies),
+            ],
           ),
-          ExhibitorsLayout(companies: companies,),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Colors.white),
-              label: 'Inicio',
-              backgroundColor: Colors.black),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.car_crash, color: Colors.white),
-              label: 'Proyectos',
-              backgroundColor: Colors.black),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.map, color: Colors.white),
-              label: 'Mapa',
-              backgroundColor: Colors.black),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.flag, color: Colors.white),
-              label: 'Ponentes',
-              backgroundColor: Colors.black),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.add_home_work_sharp, color: Colors.white),
-              label: 'Expositores',
-              backgroundColor: Colors.black),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        selectedItemColor: Colors.blueAccent,
-        unselectedItemColor: Colors.black,
-      ),
-    );
-  }
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home, color: Colors.white),
+                  label: 'Inicio',
+                  backgroundColor: Colors.black),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.car_crash, color: Colors.white),
+                  label: 'Proyectos',
+                  backgroundColor: Colors.black),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.map, color: Colors.white),
+                  label: 'Mapa',
+                  backgroundColor: Colors.black),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.flag, color: Colors.white),
+                  label: 'Ponentes',
+                  backgroundColor: Colors.black),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.add_home_work_sharp, color: Colors.white),
+                  label: 'Expositores',
+                  backgroundColor: Colors.black),
+            ],
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            selectedItemColor: Colors.blueAccent,
+            unselectedItemColor: Colors.black,
+          ),
+        );
+      }
+    },
+  );
+}
+
 
   Widget _homeScreen() {
     return SingleChildScrollView(
