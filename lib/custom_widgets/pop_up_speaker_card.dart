@@ -47,16 +47,19 @@ class SpeakersPopUpCArd extends StatelessWidget {
                       speakers.name,
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: 16),
+                      maxLines: 2,
                     ),
                     Text(
                       speakers.surname1, // Convertir a String
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: 16),
+                      maxLines: 2,
                     ),
                     Text(
                       speakers.biography, // Convertir a String
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: 16),
+                      maxLines: 2,
                     ),
                   ],
                 ),

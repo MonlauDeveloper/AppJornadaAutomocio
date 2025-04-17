@@ -27,11 +27,11 @@ class SpeakerCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(ponencia.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                Text(ponencia.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white), maxLines: 2),
                 const SizedBox(height: 5),
-                Text(ponencia.initTime, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                Text(ponencia.initTime, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white), maxLines: 2),
                 const SizedBox(height: 5),
-                Text(ponencia.speakers[0].name, style: TextStyle(fontSize: 14, color: Colors.white)),
+                Text(ponencia.speakers[0].name, style: TextStyle(fontSize: 14, color: Colors.white), maxLines: 2),
               ],
             ),
           ),
