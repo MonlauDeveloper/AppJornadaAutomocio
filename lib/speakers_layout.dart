@@ -5,6 +5,8 @@ import 'package:app_maquinista/model/meetings.dart';
 import 'package:app_maquinista/model/speakers.dart';
 import 'package:flutter/material.dart';
 
+import 'custom_widgets/custom_card.dart';
+
 class SpeakersLayout extends StatefulWidget {
   SpeakersLayout({super.key, required this.ponencias});
 
@@ -13,6 +15,24 @@ class SpeakersLayout extends StatefulWidget {
   @override
   _SpeakersLayout createState() => _SpeakersLayout();
 }
+
+final List<Map<String, String>> pruebasDinamicas = [
+  {
+    "title": "Prueba 1",
+    "equipo": "Equipo 1",
+    "time": "10:00",
+  },
+  {
+    "title": "Prueba 2",
+    "equipo": "Equipo 2",
+    "time": "10:00",
+  },
+  {
+    "title": "Prueba 3",
+    "equipo": "Equipo 3",
+    "time": "10:00",
+  },
+];
 
 class _SpeakersLayout extends State<SpeakersLayout> {
   @override
@@ -76,13 +96,42 @@ class _SpeakersLayout extends State<SpeakersLayout> {
                                 speakers: widget.ponencias[index].speakers[0]);
                           });
                     },
-                    child: Container(
-                      width: 250,
-                      padding: const EdgeInsets.all(10.0),
-                      child: SpeakerCard(
-                        ponencia: widget.ponencias[index],
-                      ),
-                    ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          elevation: 4,
+                          child: Container(
+                            width: 250,
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  widget.ponencias[index].name ?? "Título por defecto",
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  widget.ponencias[index].initTime ?? "00:00",
+                                  style: const TextStyle(fontSize: 14),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 8),
+                                /*
+                                Text(
+                                  widget.ponencias[index].speakers[0].name.toString() ?? "00:00",
+                                  style: const TextStyle(fontSize: 14),
+                                  textAlign: TextAlign.center,
+                                ),
+                                 */
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
                   );
                 },
               )),
@@ -123,19 +172,45 @@ class _SpeakersLayout extends State<SpeakersLayout> {
                   child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.zero,
-                itemCount: widget.ponencias.length,
+                itemCount: pruebasDinamicas.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return SpeakersPopUpCArd(
-                                speakers: widget.ponencias[index].speakers[0]);
-                          });
+
                     },
-                    child: SpeakerCard(
-                      ponencia: widget.ponencias[index],
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        elevation: 4,
+                        child: Container(
+                          width: 250,
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                pruebasDinamicas[index]["title"] ?? "Título por defecto",
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                pruebasDinamicas[index]["equipo"] ?? "Sin equipo",
+                                style: const TextStyle(fontSize: 14),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                pruebasDinamicas[index]["time"] ?? "00:00",
+                                style: const TextStyle(fontSize: 14),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   );
                 },

@@ -56,7 +56,7 @@ class _MapLayout extends State<MapLayout> {
         Row(
           children: [
             Padding(
-                padding: const EdgeInsets.only(bottom: 12.0),
+                padding: const EdgeInsets.only(bottom: 5.0),
                 child: CustomPaint(
                   size: Size(100, 10),
                   painter: LinePainter(),
