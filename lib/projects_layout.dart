@@ -156,7 +156,7 @@ class _ProjectsLayout extends State<ProjectsLayout>
 
   // Cargar más proyectos cuando se llega al final de la lista
   void _onScroll() {
-    print("mas");
+    
     /*widget.scController.position.pixels != 0 && widget.scController.position.atEdge */
     if(widget.scController.offset >= widget.scController.position.maxScrollExtent)
     {
