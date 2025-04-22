@@ -208,7 +208,7 @@ Widget build(BuildContext context) {
             ]),
             // Lista horizontal de proyectos
             SizedBox(
-              height: 130,
+              height: 150,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: projectos.length,
@@ -242,7 +242,13 @@ Widget build(BuildContext context) {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                projectos[index].Autor[0].name ?? "Sin descripción",
+                                '${projectos[index].Autor[0].name}${' '}${projectos[index].Autor[0].surname_1}',
+                                style: const TextStyle(fontSize: 14),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                projectos[index].NivelEstudios,
                                 style: const TextStyle(fontSize: 14),
                                 textAlign: TextAlign.center,
                               ),
