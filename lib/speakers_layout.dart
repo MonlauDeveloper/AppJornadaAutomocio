@@ -16,9 +16,8 @@ class SpeakersLayout extends StatefulWidget {
 }
 
 final List<Map<String, String>> pruebasDinamicas = [
-  {"title": "Prueba 1", "equipo": "Equipo 1", "time": "10:00"},
-  {"title": "Prueba 2", "equipo": "Equipo 2", "time": "10:00"},
-  {"title": "Prueba 3", "equipo": "Equipo 3", "time": "10:00"},
+  {"title": "Pruebas de aceleración, Slalom y frenada", "site": "Circuito MonlauTech", "time": "09:20"},
+  {"title": "Pruebas de resistencia", "site": "Circuito MonlauTech", "time": "11:00"},
 ];
 
 class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixin {
@@ -96,7 +95,7 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
               Expanded(
                 child: TabBarView(
                   controller: _tabController,
-                  children: [_projects(), _monlauTech()],
+                  children: [_ponencias(), pruebas_dinamicas()],
                 ),
               ),
             ],
@@ -106,7 +105,7 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
     );
   }
 
-  Widget _projects() {
+  Widget _ponencias() {
     return ListView.builder(
       //scrollDirection: Axis.horizontal,
       padding: EdgeInsets.zero,
@@ -154,7 +153,7 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
     );
   }
 
-  Widget _monlauTech() {
+  Widget pruebas_dinamicas() {
     return ListView.builder(
       //scrollDirection: Axis.horizontal,
       padding: EdgeInsets.zero,
@@ -178,7 +177,7 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    prueba["equipo"] ?? "Sin equipo",
+                    prueba["site"] ?? "Sin equipo",
                     style: const TextStyle(fontSize: 14),
                     textAlign: TextAlign.center,
                   ),
