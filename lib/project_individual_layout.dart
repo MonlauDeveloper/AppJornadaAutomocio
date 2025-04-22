@@ -153,7 +153,7 @@ class _ProjectIndividualLayoutState extends State<ProjectIndividualLayout>
         children: [
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.zero,
+              padding: EdgeInsets.all(15.0),
               itemCount: widget.project.Autor.length,
               itemBuilder: (context, index) {
                 return InkWell(
