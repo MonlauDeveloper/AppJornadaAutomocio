@@ -25,6 +25,6 @@ class Meetings {
       speakers.add(Speakers.fromjson(speak));
     }
 
-    return Meetings(meet["presentationName"],meet["presentationDate"],meet["topic"],"","",speakers,meet["ubication"]);
+    return Meetings(meet["presentationName"],meet["presentationDate"],meet["topic"],meet["presentationDate"],meet["presentationDate"],speakers,meet["ubication"]);
   }
 }

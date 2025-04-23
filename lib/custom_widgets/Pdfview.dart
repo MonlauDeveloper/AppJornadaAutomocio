@@ -44,7 +44,7 @@ class _PDFviewState extends State<PDFview> {
       });
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Error descargando PDF: $e")),
+          SnackBar(content: Text("Error descargando PDF")),
         );
       }
     }
@@ -71,7 +71,7 @@ class _PDFviewState extends State<PDFview> {
               ? PDFView(
                   filePath: _localPath!,
                   onRender: (pages) => print("Total de páginas: $pages"),
-                  onError: (error) => print("Error renderizando PDF: $error"),
+                  onError: (error) => print("Error renderizando PDF"),
                   onPageChanged: (page, total) => print("Página actual: $page, Total: $total"),
                 )
               : const Center(

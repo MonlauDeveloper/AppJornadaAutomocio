@@ -88,8 +88,8 @@ class _ExhibitorsLayout extends State<ExhibitorsLayout> {
                                           borderRadius: BorderRadius.circular(12),
                                           child: Image.network(
                                             companies[index].img_url,
-                                            height: 120,
-                                            width: 120,
+                                            height: 150,
+                                            width: 150,
                                             fit: BoxFit.cover,
                                           ),
                                         ),

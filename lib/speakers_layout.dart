@@ -118,7 +118,7 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
               context: context,
               builder: (BuildContext context) {
                 return SpeakersPopUpCArd(
-                  speakers: widget.ponencias[index].speakers[0]);
+                  speakers: ponencia.speakers[0], meets: ponencia);
               },
             );
           },

@@ -286,7 +286,7 @@ Widget build(BuildContext context) {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return SpeakersPopUpCArd(speakers: meets[index].speakers[0]);
+                          return SpeakersPopUpCArd(speakers: meets[index].speakers[0], meets: meets[index]);
                         }
                     );
                   },
