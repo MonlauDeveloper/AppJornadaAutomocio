@@ -1,12 +1,15 @@
+import 'package:app_maquinista/model/meetings.dart';
 import 'package:app_maquinista/model/speakers.dart';
 import 'package:flutter/material.dart';
 
 class SpeakersPopUpCArd extends StatelessWidget {
   final Speakers speakers;
+  final Meetings meets;
 
   const SpeakersPopUpCArd({
     super.key,
-    required this.speakers
+    required this.speakers,
+    required this.meets
   });
 
   @override
@@ -44,19 +47,22 @@ class SpeakersPopUpCArd extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      speakers.name,
+                      '${speakers.name}${' '}${speakers.surname1}',
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: 16),
+                      maxLines: 2,
                     ),
                     Text(
-                      speakers.surname1, // Convertir a String
+                      speakers.biography,
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: 16),
+                      maxLines: 2,
                     ),
                     Text(
-                      speakers.biography, // Convertir a String
+                      meets.initTime,
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: 16),
+                      maxLines: 2,
                     ),
                   ],
                 ),

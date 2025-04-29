@@ -44,7 +44,7 @@ class _PDFviewState extends State<PDFview> {
       });
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Error descargando PDF: $e")),
+          SnackBar(content: Text("Error descargando PDF")),
         );
       }
     }
@@ -68,15 +68,15 @@ class _PDFviewState extends State<PDFview> {
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _localPath != null
-              ? PDFView(
-                  filePath: _localPath!,
-                  onRender: (pages) => print("Total de páginas: $pages"),
-                  onError: (error) => print("Error renderizando PDF: $error"),
-                  onPageChanged: (page, total) => print("Página actual: $page, Total: $total"),
-                )
-              : const Center(
-                  child: Icon(Icons.picture_as_pdf, size: 200, color: Colors.red),
-                ),
+          ? PDFView(
+        filePath: _localPath!,
+        onRender: (pages) => print("Total de páginas: $pages"),
+        onError: (error) => print("Error renderizando PDF"),
+        onPageChanged: (page, total) => print("Página actual: $page, Total: $total"),
+      )
+          : const Center(
+        child: Icon(Icons.picture_as_pdf, size: 200, color: Colors.red),
+      ),
     );
   }
 }

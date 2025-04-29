@@ -7,16 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProjectIndividualLayout extends StatefulWidget {
-  Proyecto project;
-
-  ProjectIndividualLayout({super.key, required this.project});
+  final Proyecto project;
+  const ProjectIndividualLayout({super.key, required this.project});
 
   @override
-  _ProjectIndividualLayoutState createState() =>
-      _ProjectIndividualLayoutState();
+  ProjectIndividualLayoutState createState() =>
+      ProjectIndividualLayoutState();
 }
 
-class _ProjectIndividualLayoutState extends State<ProjectIndividualLayout>
+class ProjectIndividualLayoutState extends State<ProjectIndividualLayout>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -40,20 +39,7 @@ class _ProjectIndividualLayoutState extends State<ProjectIndividualLayout>
           children: [
             SizedBox(
               height: 300,
-              child: Builder(builder: (context) {
-                //validamos que sea un video de yt
-                if (widget.project.VideoUrl.contains("youtube.com")) {
-                  return Ytvideo(
-                    videoUrl: widget.project.VideoUrl,
-                    is_muted: false,
-                  );
-                } else {
-                  return Icon(
-                    Icons.videocam_off,
-                    size: 150,
-                  );
-                }
-              }),
+              child: _buildVideoSection(),
             ),
             TabBar(
               controller: _tabController,
@@ -72,7 +58,7 @@ class _ProjectIndividualLayoutState extends State<ProjectIndividualLayout>
                 children: [
                   _buildDetailsSection(),
                   _buildMemorySection(),
-                  _buildAuthorsSection()
+                  _buildAuthorsSection(),
                 ],
               ),
             ),
@@ -82,68 +68,99 @@ class _ProjectIndividualLayoutState extends State<ProjectIndividualLayout>
     );
   }
 
+  Widget _buildVideoSection() {
+    if (widget.project.VideoUrl.contains("youtube.com")) {
+      return Ytvideo(
+        videoUrl: widget.project.VideoUrl,
+        is_muted: false,
+      );
+    } else {
+      return const Icon(Icons.videocam_off, size: 150);
+    }
+  }
+
   Widget _buildDetailsSection() {
-    return Scaffold(
-        body: Center(
-      child:
-      Expanded(
-          child:
-          Column(children: [
-            Padding(
-                padding: const EdgeInsets.only(top: 15.0, right: 5.0, left: 5.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(widget.project.Titulo,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)
-                    ),
-                  ],
-                )
-            ),
-            Padding(
-                padding: const EdgeInsets.only(top: 15.0, right: 5.0, left: 5.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Descripción del proyecto",
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.85),
-                    Text(widget.project.Resumen),
-                  ],
-                )
-            ),
-            Padding(
-                padding: const EdgeInsets.only(top: 15.0, right: 5.0, left: 5.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Número de tribunal",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.85),
-                  Text(widget.project.Box),
-                ],
-              ),
-            ),
-            Padding(
-                padding: const EdgeInsets.only(top: 15.0, right: 5.0, left: 5.0),
-              child: ElevatedButton(onPressed: _goToEvaluate, child: Text("Evaluar Proyecto")),
-            )
-          ],
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+        // Título
+        Align(
+        alignment: Alignment.center,
+        child: Text(
+          widget.project.Titulo,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
           ),
+          textAlign: TextAlign.center,
+        ),
       ),
-    ));
+      const SizedBox(height: 25),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Descripción del proyecto",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 17,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              widget.project.Resumen,
+              textAlign: TextAlign.justify,
+            ),
+          ),
+        ],
+      ),
+      const SizedBox(height: 25),
+      Row(
+        children: [
+          const Icon(Icons.account_balance, size: 20),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Número de tribunal",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                  ),
+                ),
+                Text(widget.project.Box),
+              ],
+            ),
+          ),
+        ],
+      ),
+      const SizedBox(height: 30),
+      ElevatedButton(
+        onPressed: _goToEvaluate,
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+        ), child: const Text("Evaluar Proyecto"),
+      )]),
+    );
   }
 
   Widget _buildMemorySection() {
-    //print(widget.project.MemoriaUrl);
-    return Scaffold(body: PDFview(url: widget.project.MemoriaUrl));
+    try {
+      return PDFview(url: widget.project.MemoriaUrl);
+    } catch (e) {
+      return Center(child: Text("Error al cargar PDF: ${e.toString()}"));
+      //return Text("pdf");
+    }
   }
 
   Widget _buildAuthorsSection() {
@@ -153,7 +170,7 @@ class _ProjectIndividualLayoutState extends State<ProjectIndividualLayout>
         children: [
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.zero,
+              padding: EdgeInsets.all(15.0),
               itemCount: widget.project.Autor.length,
               itemBuilder: (context, index) {
                 return InkWell(
@@ -179,10 +196,15 @@ class _ProjectIndividualLayoutState extends State<ProjectIndividualLayout>
     );
   }
 
-  _goToEvaluate() async {
-    final Uri url = Uri.parse(widget.project.UrlEvaluation);
-    if (!await launchUrl(url)) {
-      throw Exception("Don't work");
+  Future<void> _goToEvaluate() async {
+    try {
+      final Uri url = Uri.parse(widget.project.UrlEvaluation);
+      if (!await launchUrl(url)) {
+        throw Exception("No se pudo abrir la URL");
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Error: ${e.toString()}")));
     }
   }
 }

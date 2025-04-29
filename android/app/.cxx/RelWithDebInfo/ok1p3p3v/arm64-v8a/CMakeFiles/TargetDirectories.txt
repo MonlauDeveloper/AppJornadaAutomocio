@@ -1,0 +1,2 @@
+C:/Users/polcr/Documents/try/AppJornadaAutomocio/android/app/.cxx/RelWithDebInfo/ok1p3p3v/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/polcr/Documents/try/AppJornadaAutomocio/android/app/.cxx/RelWithDebInfo/ok1p3p3v/arm64-v8a/CMakeFiles/rebuild_cache.dir

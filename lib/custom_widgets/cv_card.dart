@@ -17,22 +17,25 @@ class CVCard extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12), // Bordes redondeados
-          child: Image.network(
-            imagePath,
-            width: imageSize,
-            height: imageSize,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return Image.network(
-              "https://jornadaautomocion.alumnes-monlau.com/storage/photos/por_defecto/user_default.png",
-              width: imageSize,
-              height: imageSize,
-              fit: BoxFit.cover,
-              );
-            },
-          ),
+        Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12), // Bordes redondeados
+              child: Image.network(
+                imagePath,
+                width: imageSize,
+                height: imageSize,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.network(
+                    "https://jornadaautomocion.alumnes-monlau.com/storage/photos/por_defecto/user_default.png",
+                    width: imageSize,
+                    height: imageSize,
+                    fit: BoxFit.cover,
+                  );
+                },
+              ),
+            ),
         ),
         const SizedBox(height: 8),
         Text(
