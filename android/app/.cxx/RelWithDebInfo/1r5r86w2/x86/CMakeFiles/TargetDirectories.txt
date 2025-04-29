@@ -1,0 +1,2 @@
+/home/mtcraft22/Documentos/monlau/appmonlau/AppJornadaAutomocio/android/app/.cxx/RelWithDebInfo/1r5r86w2/x86/CMakeFiles/edit_cache.dir
+/home/mtcraft22/Documentos/monlau/appmonlau/AppJornadaAutomocio/android/app/.cxx/RelWithDebInfo/1r5r86w2/x86/CMakeFiles/rebuild_cache.dir
