@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'custom_widgets/carrousel_img.dart';
 import 'custom_widgets/line_painter.dart';
 
@@ -19,6 +20,15 @@ class _MapLayout extends State<MapLayout> {
     "assets/img/Plano.png",
     "assets/img/PlanoParking.png",
   ];
+
+  Future<void> _openGoogleMaps() async {
+    const String googleMapsUrl = "https://www.google.com/maps/place/Nürburgreen+Indoor+-+Karting+Electric/@41.6212348,2.3090303,17z/data=!3m1!4b1!4m6!3m5!1s0x12a4c92990070199:0xba70db840d176db2!8m2!3d41.6212348!4d2.3116052!16s%2Fg%2F11s_zq9ksf?entry=ttu&g_ep=EgoyMDI1MDQyMy4wIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D";
+    if (await canLaunch(googleMapsUrl)) {
+      await launch(googleMapsUrl);
+    } else {
+      throw 'No se pudo abrir Google Maps';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -47,6 +47,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   youtube_player_flutter: ^9.1.1
   carousel_slider: any
+  connectivity_plus: ^4.0.2
 
 dev_dependencies:
   flutter_test:
