@@ -69,6 +69,9 @@ class _ProjectsLayout extends State<ProjectsLayout>
   @override
   void initState() {
     super.initState();
+    widget.filter_mng_tittle.where = "title";
+    widget.filter_mng_students.where = "student";
+    widget.filter_mng_course.where ="idSpecialization";
     widget.proj_all = proj_mng;
 
     _tabController = TabController(length: 2, vsync: this);
@@ -89,12 +92,12 @@ class _ProjectsLayout extends State<ProjectsLayout>
   }
 
   // Filtrar proyectos basados en el texto de búsqueda y el filtro seleccionado
-  void _filterProjectos(int page) async {
+  Future<void> _filterProjectos(int page) async {
     final query = _searchController.text.toLowerCase();
     if (query.isNotEmpty && _filterSelectOption == "Todos"){
       List<Proyecto> projs = [];
       widget.current = 1;
-      
+       
       widget.filter_mng_tittle.value = query;
       widget.filter_mng_students.value = query;
       widget.filter_mng_tittle.where = "title";
@@ -121,36 +124,58 @@ class _ProjectsLayout extends State<ProjectsLayout>
           widget.projects = a;
       });
     }else if (query.isNotEmpty && _filterSelectOption != "Todos"){
-      List<Proyecto> projs = [];
-      widget.current = 1;
+        List<Proyecto> projs = [];
+        widget.current = 1;
+      if (_filterSelectOption == "Num. Tribunal"){
+        widget.filter_mng_course.where ="numTribunal";
+        widget.filter_mng_course.value = query;
+        
+        projs.addAll(await widget.filter_mng_course.get_page(page));
+        projs = projs.where((element) => element.Box == query).toList();
+        setState(() {
+            widget.projects = projs;
+        });
+      }else{
       
-      widget.filter_mng_tittle.value = query;
-      widget.filter_mng_students.value = query;
-      widget.filter_mng_tittle.where = "title";
-      widget.filter_mng_students.where = "student";
-      widget.filter_mng_course.where ="idSpecialization";
-      projs.addAll(await widget.filter_mng_tittle.get_page(page));
-      projs.addAll(await widget.filter_mng_students.get_page(page));
+        
+        widget.filter_mng_tittle.value = query;
+        widget.filter_mng_students.value = query;
+        widget.filter_mng_tittle.where = "title";
+        widget.filter_mng_students.where = "student";
+        widget.filter_mng_course.where ="idSpecialization";
+        projs.addAll(await widget.filter_mng_tittle.get_page(page));
+        projs.addAll(await widget.filter_mng_students.get_page(page));
+        
+        setState(() {
+            widget.projects = filtrar(projs);
+        });
+      }
       
-      setState(() {
-          widget.projects = filtrar(projs);
-      });
     }
   }
 
   // Cargar más proyectos cuando se llega al final de la lista
   void _onScroll() {
+    
     /*widget.scController.position.pixels != 0 && widget.scController.position.atEdge */
-    if (widget.scController.position.pixels >= widget.scController.position.maxScrollExtent - 200) {
+    if(widget.scController.offset >= widget.scController.position.maxScrollExtent)
+    {
       _loadMoreProjects();
     }
+    
   }
 
   Future<void> _loadMoreProjects() async {
     if (widget.current <= widget.proj_mng.available_pages) {
-      _filterProjectos(widget.current);
-      widget.current ++;
+      List<Proyecto> pre = widget.projects;
+
+      await _filterProjectos(widget.current);
+      setState(()  {
       
+      pre.addAll(widget.projects);
+      widget.projects = pre;
+      widget.current ++;
+      });
     }
   }
 
