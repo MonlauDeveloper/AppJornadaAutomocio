@@ -131,7 +131,7 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
               context: context,
               builder: (BuildContext context) {
                 return SpeakersPopUpCArd(
-                  speakers: ponencia.speakers[0], meets: ponencia);
+                  speakers: ponencia.speakers, meets: ponencia);
               },
             );
           },
@@ -152,7 +152,13 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      ponencia.initTime ?? "00:00",
+                      ponencia.initTime ?? "Título por defecto",
+                      style: const TextStyle(fontSize: 14),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      ponencia.description ?? "00:00",
                       style: const TextStyle(fontSize: 14),
                       textAlign: TextAlign.center,
                     ),

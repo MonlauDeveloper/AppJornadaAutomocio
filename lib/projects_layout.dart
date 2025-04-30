@@ -224,7 +224,7 @@ class _ProjectsLayout extends State<ProjectsLayout>
                               dividerColor: Colors.transparent,
                               indicatorColor: Colors.blue,
                               labelColor: Colors.blue,
-                              unselectedLabelColor: Colors.grey,
+                              unselectedLabelColor: Colors.black,
                               labelPadding: EdgeInsets.symmetric(
                                   horizontal: MediaQuery.of(context).size.width * 0.02, vertical: 0),
                               isScrollable: true,
@@ -252,11 +252,8 @@ class _ProjectsLayout extends State<ProjectsLayout>
                         onChanged: (String? newValue) {
                           setState(() {
                             _filterSelectOption = newValue!;
-                        
-                            
                           });
                           _filterProjectos(widget.current);
-                         
                         },
                         items: _filter.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
