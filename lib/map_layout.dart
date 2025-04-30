@@ -35,13 +35,24 @@ class _MapLayout extends State<MapLayout> {
     return Scaffold(
         body: SafeArea(
             child: Center(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 10.0),
-          child: SizedBox(
-            width: 100,
-            height: 90,
-            child: Image.asset('assets/img/logomonlau.png'),
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 100,
+                height: 90,
+                child: Image.asset('assets/img/logomonlau.png'),
+              ),
+              SizedBox(
+                width: 100,
+                height: 90,
+                child: Image.asset('assets/img/logo2.jpg'),
+              )
+            ],
           ),
         ),
         Padding(

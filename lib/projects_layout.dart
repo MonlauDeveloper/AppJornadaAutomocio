@@ -187,10 +187,23 @@ class _ProjectsLayout extends State<ProjectsLayout>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                width: 100,
-                height: 110,
-                child: Image.asset('assets/img/logomonlau.png'),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      height: 90,
+                      child: Image.asset('assets/img/logomonlau.png'),
+                    ),
+                    SizedBox(
+                      width: 100,
+                      height: 90,
+                      child: Image.asset('assets/img/logo2.jpg'),
+                    )
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 13.0),
@@ -211,7 +224,7 @@ class _ProjectsLayout extends State<ProjectsLayout>
                               dividerColor: Colors.transparent,
                               indicatorColor: Colors.blue,
                               labelColor: Colors.blue,
-                              unselectedLabelColor: Colors.grey,
+                              unselectedLabelColor: Colors.black,
                               labelPadding: EdgeInsets.symmetric(
                                   horizontal: MediaQuery.of(context).size.width * 0.02, vertical: 0),
                               isScrollable: true,
@@ -239,11 +252,8 @@ class _ProjectsLayout extends State<ProjectsLayout>
                         onChanged: (String? newValue) {
                           setState(() {
                             _filterSelectOption = newValue!;
-                        
-                            
                           });
                           _filterProjectos(widget.current);
-                         
                         },
                         items: _filter.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
