@@ -65,7 +65,7 @@ List<Companies> companies = [];
 NetProjects proj_mng = NetProjects(10, "projectsPages", "projects");
 NetMonalautech mont_mng = NetMonalautech(10);
 NetCompanies com_mng = NetCompanies(70);
-NetMeetings met_mng = NetMeetings(10);
+NetMeetings met_mng = NetMeetings(70);
 
 //classe pricipal del widget del la pantalla de inicio
 class MyHomePage extends StatefulWidget {
