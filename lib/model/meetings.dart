@@ -24,7 +24,7 @@ class Meetings {
     for (var speak in jspeakers){
       speakers.add(Speakers.fromjson(speak));
     }
-
+    meet["presentationDate"] = meet["presentationDate"].toString().substring(0,meet["presentationDate"].toString().length-3);
     return Meetings(meet["presentationName"],meet["presentationDate"],meet["topic"],meet["presentationDate"],meet["presentationDate"],speakers,meet["ubication"]);
   }
 }
