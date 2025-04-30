@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PDFview extends StatefulWidget {
   const PDFview({super.key, required this.url});
@@ -20,6 +21,22 @@ class _PDFviewState extends State<PDFview> {
   void initState() {
     super.initState();
     _downloadAndLoadPDF();
+  }
+
+  Future<void> _launchPDFExternal() async {
+    try {
+      if (await canLaunch(widget.url)) {
+        await launch(widget.url);
+      } else {
+        throw 'No se pudo abrir el enlace';
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error al abrir PDF: $e")),
+        );
+      }
+    }
   }
 
   Future<void> _downloadAndLoadPDF() async {
@@ -65,6 +82,11 @@ class _PDFviewState extends State<PDFview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: _launchPDFExternal,
+        child: Icon(Icons.open_in_new),
+        tooltip: 'Abrir PDF externamente',
+      ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _localPath != null
@@ -72,10 +94,17 @@ class _PDFviewState extends State<PDFview> {
         filePath: _localPath!,
         onRender: (pages) => print("Total de páginas: $pages"),
         onError: (error) => print("Error renderizando PDF"),
-        onPageChanged: (page, total) => print("Página actual: $page, Total: $total"),
+        onPageChanged: (page, total) =>
+            print("Página actual: $page, Total: $total"),
       )
-          : const Center(
-        child: Icon(Icons.picture_as_pdf, size: 200, color: Colors.red),
+          : Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.picture_as_pdf, size: 100, color: Colors.red),
+            SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

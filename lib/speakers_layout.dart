@@ -43,11 +43,24 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+          Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               SizedBox(
                 width: 100,
-                height: 110,
+                height: 90,
                 child: Image.asset('assets/img/logomonlau.png'),
               ),
+              SizedBox(
+                width: 100,
+                height: 90,
+                child: Image.asset('assets/img/logo2.jpg'),
+              )
+            ],
+          ),
+        ),
               Padding(
                 padding: const EdgeInsets.only(left: 13.0),
                 child: Row(
