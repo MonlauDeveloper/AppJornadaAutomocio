@@ -196,7 +196,7 @@ Widget build(BuildContext context) {
                         projects: projectos,
                         proj_mng: proj_mng,
                         monlauTech_mng: mont_mng,
-                        monlauTechPrj: testdinamicos,
+                        monlauTechPrj: monlautech,
                       ),
                     )
                 );
