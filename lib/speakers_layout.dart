@@ -16,11 +16,20 @@ class SpeakersLayout extends StatefulWidget {
 }
 
 final List<Map<String, String>> pruebasDinamicas = [
-  {"title": "Pruebas de aceleración, Slalom y frenada", "site": "Circuito MonlauTech", "time": "09:20"},
-  {"title": "Pruebas de resistencia", "site": "Circuito MonlauTech", "time": "11:00"},
+  {
+    "title": "Pruebas de aceleración, Slalom y frenada",
+    "site": "Circuito MonlauTech",
+    "time": "09:20"
+  },
+  {
+    "title": "Pruebas de resistencia",
+    "site": "Circuito MonlauTech",
+    "time": "11:00"
+  },
 ];
 
-class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixin {
+class _SpeakersLayout extends State<SpeakersLayout>
+    with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -43,24 +52,24 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-          Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 100,
-                height: 90,
-                child: Image.asset('assets/img/logomonlau.png'),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      height: 90,
+                      child: Image.asset('assets/img/logomonlau.png'),
+                    ),
+                    SizedBox(
+                      width: 100,
+                      height: 90,
+                      child: Image.asset('assets/img/logo2.jpg'),
+                    )
+                  ],
+                ),
               ),
-              SizedBox(
-                width: 100,
-                height: 90,
-                child: Image.asset('assets/img/logo2.jpg'),
-              )
-            ],
-          ),
-        ),
               Padding(
                 padding: const EdgeInsets.only(left: 13.0),
                 child: Row(
@@ -71,7 +80,9 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
                         children: [
                           Container(
                             decoration: const BoxDecoration(
-                              border: Border(bottom: BorderSide(color: Colors.transparent)),
+                              border: Border(
+                                  bottom:
+                                      BorderSide(color: Colors.transparent)),
                             ),
                             child: TabBar(
                               controller: _tabController,
@@ -81,7 +92,8 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
                               labelColor: Colors.blue,
                               unselectedLabelColor: Colors.grey,
                               labelPadding: EdgeInsets.symmetric(
-                                  horizontal: MediaQuery.of(context).size.width * 0.02,
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.02,
                                   vertical: 0),
                               isScrollable: true,
                               tabAlignment: TabAlignment.start,
@@ -131,7 +143,7 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
               context: context,
               builder: (BuildContext context) {
                 return SpeakersPopUpCArd(
-                  speakers: ponencia.speakers, meets: ponencia);
+                    speakers: ponencia.speakers, meets: ponencia);
               },
             );
           },
@@ -147,7 +159,8 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
                   children: [
                     Text(
                       ponencia.name ?? "Título por defecto",
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
@@ -191,7 +204,8 @@ class _SpeakersLayout extends State<SpeakersLayout> with TickerProviderStateMixi
                 children: [
                   Text(
                     prueba["title"] ?? "Título por defecto",
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8),
