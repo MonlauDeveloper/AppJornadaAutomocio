@@ -1,22 +1,18 @@
-import 'package:app_maquinista/custom_widgets/exibitors_card.dart';
 import 'package:app_maquinista/model/companies.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'custom_widgets/line_painter.dart';
-import 'main.dart';
-import 'model/companies.dart';
-import 'model/projectos.dart';
 
 class ExhibitorsLayout extends StatefulWidget {
   ExhibitorsLayout({super.key, required this.companies});
+
   @override
   _ExhibitorsLayout createState() => _ExhibitorsLayout();
-  List<Companies> companies;
+
+  List<Companies> companies; // Lista de empresas expositoras recibida como parámetro
 }
 
 class _ExhibitorsLayout extends State<ExhibitorsLayout> {
-  List<Proyecto> monlautech = [];
 
   @override
   Widget build(BuildContext context) {
@@ -26,24 +22,22 @@ class _ExhibitorsLayout extends State<ExhibitorsLayout> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // Encabezado con logo
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 100,
-                          height: 90,
-                          child: Image.asset('assets/img/logomonlau.png'),
+                          width: 280,
+                          height: 95,
+                          child: Image.asset('assets/img/logo_monlau_sf.png'), // Logo principal
                         ),
-                        SizedBox(
-                          width: 100,
-                          height: 90,
-                          child: Image.asset('assets/img/logo2.jpg'),
-                        )
                       ],
                     ),
                   ),
+
+                  // Título de la sección
                   Padding(
                     padding: const EdgeInsets.only(left: 13.0),
                     child: Row(
@@ -59,7 +53,9 @@ class _ExhibitorsLayout extends State<ExhibitorsLayout> {
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17,
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 110),
@@ -69,6 +65,8 @@ class _ExhibitorsLayout extends State<ExhibitorsLayout> {
                       ],
                     ),
                   ),
+
+                  // Línea decorativa
                   Row(
                     children: [
                       CustomPaint(
@@ -77,40 +75,49 @@ class _ExhibitorsLayout extends State<ExhibitorsLayout> {
                       )
                     ],
                   ),
+
+                  // Lista de expositores (parte principal)
                   Expanded(
                     child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: ListView.builder(
                             padding: EdgeInsets.zero,
-                            itemCount: companies.length,
+                            itemCount: widget.companies.length, // Usa la lista de empresas del widget padre
                             itemBuilder: (context, index) {
                               return InkWell(
                                   onTap: () {
-                                    launchUrl(Uri.parse(companies[index].web));
+                                    // Abre la página web de la empresa al pulsar
+                                    launchUrl(Uri.parse(widget.companies[index].web));
                                   },
                                   child: Card(
                                     margin: const EdgeInsets.all(12),
-                                    elevation: 8,
+                                    elevation: 8, // Sombra
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
+                                      borderRadius: BorderRadius.circular(16), // Bordes redondeados
                                     ),
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
+                                        // Imagen de la empresa
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(12),
                                           child: Image.network(
-                                            companies[index].img_url,
+                                            widget.companies[index].img_url,
                                             height: 150,
                                             width: 150,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
+
+                                        // Espaciador
                                         SizedBox(
-                                            height: 10,
-                                            width: MediaQuery.of(context).size.width * 0.78),
+                                          height: 10,
+                                          width: MediaQuery.of(context).size.width * 0.78,
+                                        ),
+
+                                        // Nombre de la empresa
                                         Text(
-                                          companies[index].name,
+                                          widget.companies[index].name,
                                           style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
@@ -120,12 +127,14 @@ class _ExhibitorsLayout extends State<ExhibitorsLayout> {
                                     ),
                                   )
                               );
-                            })
+                            }
+                        )
                     ),
                   ),
-
                 ],
               ),
-            )));
+            )
+        )
+    );
   }
 }

@@ -193,15 +193,10 @@ class _ProjectsLayout extends State<ProjectsLayout>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: 100,
-                      height: 90,
-                      child: Image.asset('assets/img/logomonlau.png'),
+                      width: 280,
+                      height: 95,
+                      child: Image.asset('assets/img/logo_monlau_sf.png'),
                     ),
-                    SizedBox(
-                      width: 100,
-                      height: 90,
-                      child: Image.asset('assets/img/logo2.jpg'),
-                    )
                   ],
                 ),
               ),
@@ -280,7 +275,6 @@ class _ProjectsLayout extends State<ProjectsLayout>
                   controller: _searchController,
                   decoration: InputDecoration(
                     hintText: 'Buscar proyecto',
-                    //prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
