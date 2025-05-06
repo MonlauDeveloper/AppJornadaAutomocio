@@ -4,7 +4,7 @@ import 'package:app_maquinista/model/projectos.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
-
+//classe para cargar las companias
 class NetCompanies extends Netload<Companies> {
   NetCompanies(int limit) :super(limit,"companiesPages","companies");
 

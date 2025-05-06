@@ -25,6 +25,7 @@ class ProjectsLayout extends StatefulWidget {
   });
 
   Netload proj_mng;
+  late int available;
   NetProjects proj_all = NetProjects(0,"","");
   NetFilterProjects filter_mng_students = NetFilterProjects(7);
   NetFilterProjects filter_mng_tittle = NetFilterProjects(7);
@@ -73,7 +74,7 @@ class _ProjectsLayout extends State<ProjectsLayout>
     widget.filter_mng_students.where = "student";
     widget.filter_mng_course.where ="idSpecialization";
     widget.proj_all = proj_mng;
-
+    widget.available = 1 ;
     _tabController = TabController(length: 2, vsync: this);
     filteredProjects = widget.projects; // Inicializar con todos los proyectos
     _searchController.addListener(()=>_filterProjectos(widget.current));
@@ -93,6 +94,8 @@ class _ProjectsLayout extends State<ProjectsLayout>
 
   // Filtrar proyectos basados en el texto de búsqueda y el filtro seleccionado
   Future<void> _filterProjectos(int page) async {
+    widget.available = await proj_mng.fetch_pages();
+    //caputramos el texto del input
     final query = _searchController.text.toLowerCase();
     if (query.isNotEmpty && _filterSelectOption == "Todos"){
       List<Proyecto> projs = [];
@@ -102,17 +105,20 @@ class _ProjectsLayout extends State<ProjectsLayout>
       widget.filter_mng_students.value = query;
       widget.filter_mng_tittle.where = "title";
       widget.filter_mng_students.where = "student";
-      widget.filter_mng_course.where ="idSpecialization";
+      widget.filter_mng_course.where = "idSpecialization";
       projs.addAll(await widget.filter_mng_tittle.get_page(page));
       projs.addAll(await widget.filter_mng_students.get_page(page));
+
       
       setState(() {
           widget.projects = projs;
+          
       });
     }else if(query.isEmpty && _filterSelectOption != "Todos"){
       
       widget.filter_mng_course.where ="idSpecialization";
       widget.filter_mng_course.value = spe_idspe[_filterSelectOption].toString();
+      widget.available = await widget.filter_mng_course.fetch_pages();
       List<Proyecto> a = await widget.filter_mng_course.get_page(page);
       setState(() {
         widget.projects = a;
@@ -129,9 +135,9 @@ class _ProjectsLayout extends State<ProjectsLayout>
       if (_filterSelectOption == "Num. Tribunal"){
         widget.filter_mng_course.where ="numTribunal";
         widget.filter_mng_course.value = query;
-        
+        widget.available = await widget.filter_mng_course.fetch_pages();
         projs.addAll(await widget.filter_mng_course.get_page(page));
-        projs = projs.where((element) => element.Box == query).toList();
+        //projs = projs.where((element) => element.Box == query).toList();
         setState(() {
             widget.projects = projs;
         });
@@ -145,7 +151,7 @@ class _ProjectsLayout extends State<ProjectsLayout>
         widget.filter_mng_course.where ="idSpecialization";
         projs.addAll(await widget.filter_mng_tittle.get_page(page));
         projs.addAll(await widget.filter_mng_students.get_page(page));
-        
+        widget.available = await widget.filter_mng_tittle.fetch_pages() + await widget.filter_mng_students.fetch_pages() ;
         setState(() {
             widget.projects = filtrar(projs);
         });
@@ -168,14 +174,19 @@ class _ProjectsLayout extends State<ProjectsLayout>
   Future<void> _loadMoreProjects() async {
     if (widget.current <= widget.proj_mng.available_pages) {
       List<Proyecto> pre = widget.projects;
-
+      setState(() {
+        widget.current ++;
+      });
       await _filterProjectos(widget.current);
+  
       setState(()  {
       
-      pre.addAll(widget.projects);
-      widget.projects = pre;
-      widget.current ++;
+        pre.addAll(widget.projects);
+        
+  
+        widget.projects = pre;
       });
+     
     }
   }
 
