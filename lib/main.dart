@@ -196,7 +196,7 @@ Widget build(BuildContext context) {
                         projects: projectos,
                         proj_mng: proj_mng,
                         monlauTech_mng: mont_mng,
-                        monlauTechPrj: testdinamicos,
+                        monlauTechPrj: monlautech,
                       ),
                     )
                 );
@@ -285,7 +285,7 @@ Widget build(BuildContext context) {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return SpeakersPopUpCArd(speakers: meets[index].speakers[0], meets: meets[index]);
+                          return SpeakersPopUpCArd(speakers: meets[index].speakers, meets: meets[index]);
                         }
                     );
                   },
