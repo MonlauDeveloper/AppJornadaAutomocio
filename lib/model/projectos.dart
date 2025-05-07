@@ -143,4 +143,14 @@ class Proyecto {
   set Titulo(String value) {
       titulo = value;
     }
+  @override
+  bool operator ==( Object other) {
+    Proyecto _other  = other as Proyecto;
+    return this.titulo == _other.titulo && this.Resumen == _other.Resumen;
+  }
+  
+  @override
+  // TODO: implement hashCode
+  int get hashCode => super.hashCode;
+  
 }

@@ -103,6 +103,7 @@ class _ProjectsLayout extends State<ProjectsLayout>
       widget.filter_mng_tittle.where = "title";
       widget.filter_mng_students.where = "student";
       widget.filter_mng_course.where ="idSpecialization";
+      
       projs.addAll(await widget.filter_mng_tittle.get_page(page));
       projs.addAll(await widget.filter_mng_students.get_page(page));
       
@@ -129,7 +130,7 @@ class _ProjectsLayout extends State<ProjectsLayout>
       if (_filterSelectOption == "Num. Tribunal"){
         widget.filter_mng_course.where ="numTribunal";
         widget.filter_mng_course.value = query;
-        
+       
         projs.addAll(await widget.filter_mng_course.get_page(page));
         projs = projs.where((element) => element.Box == query).toList();
         setState(() {
@@ -156,7 +157,7 @@ class _ProjectsLayout extends State<ProjectsLayout>
 
   // Cargar más proyectos cuando se llega al final de la lista
   void _onScroll() {
-    
+ 
     /*widget.scController.position.pixels != 0 && widget.scController.position.atEdge */
     if(widget.scController.offset >= widget.scController.position.maxScrollExtent)
     {
@@ -168,13 +169,16 @@ class _ProjectsLayout extends State<ProjectsLayout>
   Future<void> _loadMoreProjects() async {
     if (widget.current <= widget.proj_mng.available_pages) {
       List<Proyecto> pre = widget.projects;
-
+      setState(() {
+        widget.current ++;
+      });
       await _filterProjectos(widget.current);
       setState(()  {
-      
-      pre.addAll(widget.projects);
-      widget.projects = pre;
-      widget.current ++;
+       
+        final nuevos = widget.projects.where((p) => !pre.any((e) => e.Titulo + e.Resumen == p.Titulo + p.Resumen)).toList();
+        pre.addAll(nuevos);
+        widget.projects = pre;
+        
       });
     }
   }
