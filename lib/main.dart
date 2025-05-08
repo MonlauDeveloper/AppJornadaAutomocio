@@ -97,37 +97,37 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _loadFuture,
+      future: _loadFuture, // Future que carga los datos iniciales
       builder: (context, snapshot) {
-        // Muestra un indicador de carga mientras se obtienen los datos
+        // Estado de carga: muestra un indicador circular
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           );
         }
-        // Muestra error si falla la carga
+        // Estado de error: muestra el mensaje de error
         else if (snapshot.hasError) {
           return Scaffold(
             body: Center(child: Text('Error: ${snapshot.error}')),
           );
         }
-        // Contenido principal cuando los datos están listos
+        // Estado completado: muestra el contenido principal
         else {
           return Scaffold(
             body: PageView(
-              controller: _pageController,
-              physics: const NeverScrollableScrollPhysics(), // Deshabilita scroll manual
+              controller: _pageController, // Controlador para el PageView
+              physics: const NeverScrollableScrollPhysics(), // Desactiva el scroll manual
               children: [
-                _homeScreen(), // Pantalla de inicio personalizada
-                ProjectsLayout( // Layout de proyectos
+                _homeScreen(), // Pantalla de inicio
+                ProjectsLayout( // Vista de proyectos
                   projects: projectos,
                   proj_mng: proj_mng,
                   monlauTech_mng: mont_mng,
                   monlauTechPrj: monlautech,
                 ),
-                MapLayout(), // Layout del mapa
-                SpeakersLayout(ponencias: meets), // Layout de ponentes
-                ExhibitorsLayout(companies: companies), // Layout de expositores
+                MapLayout(), // Vista del mapa
+                SpeakersLayout(ponencias: meets), // Vista de ponentes
+                ExhibitorsLayout(companies: companies), // Vista de expositores
               ],
             ),
             // Barra de navegación inferior
@@ -154,10 +154,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     label: 'Expositores',
                     backgroundColor: Colors.black),
               ],
-              currentIndex: _selectedIndex,
-              onTap: _onItemTapped,
-              selectedItemColor: Colors.blueAccent,
-              unselectedItemColor: Colors.black,
+              currentIndex: _selectedIndex, // Índice actual seleccionado
+              onTap: _onItemTapped, // Función al tocar un ítem
+              selectedItemColor: Colors.blueAccent, // Color del ítem seleccionado
+              unselectedItemColor: Colors.black, // Color de ítems no seleccionados
             ),
           );
         }
@@ -165,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  // Widget que construye la pantalla de inicio
+// Widget que construye la pantalla de inicio
   Widget _homeScreen() {
     return SingleChildScrollView(
       child: Center(
@@ -176,9 +176,9 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Expanded(
                     child: Ytvideo(
-                      videoUrl: 'https://youtu.be/O5OcIboxnkw',
-                      hide_control: true,
-                      is_muted: true,
+                      videoUrl: 'https://youtu.be/O5OcIboxnkw', // URL del video
+                      hide_control: true, // Oculta los controles
+                      is_muted: true, // Video silenciado
                     )
                 )
               ],
@@ -188,8 +188,8 @@ class _MyHomePageState extends State<MyHomePage> {
             TitleSection(
               title: 'DESCUBRE TODOS LOS PROYECTOS',
               subtitle: 'PROYECTOS',
-              onTitleTap: () {},
-              onSubtitleTap: () {
+              onTitleTap: () {}, // Acción al tocar el título (vacía)
+              onSubtitleTap: () { // Acción al tocar el subtítulo
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -203,6 +203,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
+
             // Línea decorativa
             Row(children: [
               CustomPaint(size: const Size(100, 10), painter: LinePainter())
@@ -212,29 +213,30 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 150,
               child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: projectos.length,
+                scrollDirection: Axis.horizontal, // Scroll horizontal
+                itemCount: projectos.length, // Cantidad de proyectos
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () {
+                    onTap: () { // Al tocar un proyecto
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => ProjectIndividualLayout(
-                              project: projectos[index]),
+                              project: projectos[index]), // Pasa el proyecto seleccionado
                         ),
                       );
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
-                        elevation: 4,
+                        elevation: 4, // Elevación de la tarjeta
                         child: Container(
                           width: 250,
                           padding: const EdgeInsets.all(10.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              // Título del proyecto
                               Text(
                                 projectos[index].Titulo ?? "Título por defecto",
                                 style: const TextStyle(
@@ -243,12 +245,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                 textAlign: TextAlign.center,
                               ),
                               const SizedBox(height: 8),
+                              // Nombre del autor
                               Text(
                                 '${projectos[index].Autor[0].name}${' '}${projectos[index].Autor[0].surname_1}',
                                 style: const TextStyle(fontSize: 14),
                                 textAlign: TextAlign.center,
                               ),
                               const SizedBox(height: 8),
+                              // Nivel de estudios
                               Text(
                                 projectos[index].NivelEstudios,
                                 style: const TextStyle(fontSize: 14),
@@ -263,6 +267,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
             ),
+
             // Otra línea decorativa
             Row(children: [
               CustomPaint(size: const Size(100, 10), painter: LinePainter())
@@ -272,8 +277,8 @@ class _MyHomePageState extends State<MyHomePage> {
             TitleSection(
               title: 'DESCUBRE LOS PONENTES',
               subtitle: 'PONENTES',
-              onTitleTap: () {},
-              onSubtitleTap: () {
+              onTitleTap: () {}, // Acción al tocar el título (vacía)
+              onSubtitleTap: () { // Acción al tocar el subtítulo
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -287,7 +292,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Column(
               children: List.generate(meets.length, (index) {
                 return InkWell(
-                  onTap: () {
+                  onTap: () { // Al tocar un ponente
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -299,10 +304,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   },
                   child: CustomCard(
-                      title: meets[index].name ?? "Título por defecto",
-                      time: meets[index].initTime ?? "00:00",
-                      imageUrl: "",
-                      description: meets[index].description ?? "Sin descripción"
+                      title: meets[index].name ?? "Título por defecto", // Nombre del ponente
+                      time: meets[index].initTime ?? "00:00", // Hora de inicio
+                      imageUrl: "", // URL de imagen (vacía)
+                      description: meets[index].description ?? "Sin descripción" // Descripción
                   ),
                 );
               }),

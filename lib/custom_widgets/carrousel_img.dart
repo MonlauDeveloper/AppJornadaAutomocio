@@ -1,6 +1,8 @@
+// Importación de paquetes necesarios
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+// Widget sin estado (Stateless) que recibe una lista de rutas de imágenes como parámetro
 class CarrouselImg extends StatelessWidget {
   final List<String> imgList;
 
@@ -9,38 +11,44 @@ class CarrouselImg extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
+      // Configuración del carrusel
       options: CarouselOptions(
-        height: 200.0,
-        enlargeCenterPage: true,
+        height: 200.0,              // Altura del carrusel
+        enlargeCenterPage: true,   // Amplía la imagen centrada
       ),
+      // Genera un widget para cada imagen de la lista
       items: imgList.map((item) {
         return GestureDetector(
+          // Al pulsar sobre una imagen, se abre un visor en pantalla completa
           onTap: () {
             showDialog(
               context: context,
               builder: (context) => Dialog(
-                insetPadding: EdgeInsets.zero, // Elimina el padding por defecto
-                backgroundColor: Colors.transparent, // Fondo transparente
+                insetPadding: EdgeInsets.zero, // Elimina el espacio por defecto alrededor del diálogo
+                backgroundColor: Colors.transparent, // Fondo transparente para el diálogo
                 child: Container(
-                  width: MediaQuery.of(context).size.width * 0.98, // 98% del ancho
-                  height: MediaQuery.of(context).size.height * 0.9, // 90% del alto
+                  // Tamaño del visor: 98% de ancho, 90% de alto
+                  width: MediaQuery.of(context).size.width * 0.98,
+                  height: MediaQuery.of(context).size.height * 0.9,
                   decoration: BoxDecoration(
-                    color: Colors.white, // Fondo negro para el visor
+                    color: Colors.white, // Fondo blanco del visor
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Stack(
                     children: [
+                      // Imagen con zoom y desplazamiento habilitados
                       InteractiveViewer(
-                        panEnabled: true,
-                        minScale: 0.5,
-                        maxScale: 4.0,
+                        panEnabled: true,   // Permite mover la imagen
+                        minScale: 0.5,      // Escala mínima
+                        maxScale: 4.0,      // Escala máxima
                         child: Center(
                           child: Image.asset(
-                            item,
-                            fit: BoxFit.contain,
+                            item,            // Ruta de la imagen
+                            fit: BoxFit.contain, // Ajusta la imagen sin recortarla
                           ),
                         ),
                       ),
+                      // Botón de cierre en la esquina superior derecha
                       Positioned(
                         top: 10,
                         right: 10,
@@ -55,15 +63,16 @@ class CarrouselImg extends StatelessWidget {
               ),
             );
           },
+          // Imagen mostrada en el carrusel
           child: ClipRRect(
             child: Image.asset(
               item,
-              fit: BoxFit.cover,
-              width: double.infinity,
+              fit: BoxFit.cover,      // Cubre todo el contenedor (recorta si es necesario)
+              width: double.infinity, // Ocupa todo el ancho disponible
             ),
           ),
         );
-      }).toList(),
+      }).toList(), // Convierte los widgets generados en una lista
     );
   }
 }

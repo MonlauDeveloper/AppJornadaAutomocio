@@ -58,10 +58,15 @@ class _SpeakersLayout extends State<SpeakersLayout>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: 280,
-                      height: 95,
-                      child: Image.asset('assets/img/logo_monlau_sf.png'),
+                      width: 100,
+                      height: 90,
+                      child: Image.asset('assets/img/logomonlau.png'),
                     ),
+                    SizedBox(
+                      width: 100,
+                      height: 90,
+                      child: Image.asset('assets/img/logo2.jpg'),
+                    )
                   ],
                 ),
               ),
