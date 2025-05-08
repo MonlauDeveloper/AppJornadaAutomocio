@@ -8,7 +8,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 
-
+//carga de las ponecas el funcionamento es el mismo sobre cargamos 
+//el metodo fetch items paara que las ponecias se ordenen por hora
 class NetMeetings extends Netload<Meetings> {
   NetMeetings(int limit) :super(limit,"presentationsPages","presentations");
 

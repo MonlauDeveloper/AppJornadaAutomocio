@@ -1,5 +1,5 @@
 import 'package:app_maquinista/model/speakers.dart';
-
+//lo mismo que la classe companies pero para las ponecias
 class Meetings {
   String name;
   String description;

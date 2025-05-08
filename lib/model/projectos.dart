@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:app_maquinista/model/students.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-
+//lo mismo que la classe companies pero para los proyectos
 class Proyecto {
   @protected
   int id;

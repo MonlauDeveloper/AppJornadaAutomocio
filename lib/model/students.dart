@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-
+//lo mismo que la classe companies pero para los/las estudiantes
 class Estudents {
   int id;
   String name;
@@ -17,6 +17,7 @@ class Estudents {
     this.surname_1,
     this.surname_2,
   );
+
   factory Estudents.fromJson (Map<String, dynamic> json,String server){
 
       json["isTeamLeader"] ?? 0;
@@ -24,6 +25,7 @@ class Estudents {
       //print("JAVA"+json["photoName"]);
       return Estudents(json["idStudent"], json["name"]?? " ", json["cvLink"]?? " ", json["photoName"]?? " ", leader , json["surname1"]?? " ", json["surname2"]?? " ");
   }
+  //metodo para recojer todo el nombre
   String get_all_name(){
     return this.name + " " + this.surname_1 + " " + this.surname_2;
   }

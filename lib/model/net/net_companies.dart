@@ -7,7 +7,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 
-
+//mas que lo mismo pero cargas las companias que van al evento 
+//sebrecargamos el metode fetch_items para que lo ordene por el id de 
+//la empresa por temas de relevancia
 class NetCompanies extends Netload<Companies> {
   NetCompanies(int limit) :super(limit,"companiesPages","companies");
 
