@@ -9,12 +9,14 @@ import 'custom_widgets/project_cards.dart';
 import 'custom_widgets/line_painter.dart';
 import 'model/net/net_projects.dart';
 import 'project_individual_layout.dart';
+
 const Map<String,int>spe_idspe ={
   "GS Automoción":4 ,
   "GM Electromecánica":1,
   "GM Carrocería" : 3,
   "GM Motocicletas" : 2
 };
+
 class ProjectsLayout extends StatefulWidget {
   ProjectsLayout({
     super.key,

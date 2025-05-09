@@ -33,6 +33,8 @@ class ProjectCards extends StatelessWidget {
                 //Text(projecto.get_all_members(), style: TextStyle(fontSize: 14, color: Colors.white)),
                 const SizedBox(height: 5),
                 Text(projecto.NivelEstudios, style: TextStyle(fontSize: 14, color: Colors.white)),
+                const SizedBox(height: 5),
+                Text("Num tribunal: " + projecto.Box, style: TextStyle(fontSize: 14, color: Colors.white)),
               ],
             ),
           ),

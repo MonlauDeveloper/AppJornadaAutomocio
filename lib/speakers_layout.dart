@@ -90,7 +90,7 @@ class _SpeakersLayout extends State<SpeakersLayout>
                               dividerColor: Colors.transparent,
                               indicatorColor: Colors.blue,
                               labelColor: Colors.blue,
-                              unselectedLabelColor: Colors.grey,
+                              unselectedLabelColor: Colors.black,
                               labelPadding: EdgeInsets.symmetric(
                                   horizontal:
                                       MediaQuery.of(context).size.width * 0.02,

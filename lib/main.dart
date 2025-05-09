@@ -211,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             // Lista horizontal de proyectos
             SizedBox(
-              height: 150,
+              height: 160,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal, // Scroll horizontal
                 itemCount: projectos.length, // Cantidad de proyectos
@@ -231,7 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Card(
                         elevation: 4, // Elevación de la tarjeta
                         child: Container(
-                          width: 250,
+                          width: 255,
                           padding: const EdgeInsets.all(10.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -255,6 +255,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               // Nivel de estudios
                               Text(
                                 projectos[index].NivelEstudios,
+                                style: const TextStyle(fontSize: 14),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 8),
+                              // Numero de tribunal
+                              Text(
+                                "Num tribunal: " + projectos[index].Box,
                                 style: const TextStyle(fontSize: 14),
                                 textAlign: TextAlign.center,
                               ),

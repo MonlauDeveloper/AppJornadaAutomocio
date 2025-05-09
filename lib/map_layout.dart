@@ -24,6 +24,7 @@ class _MapLayout extends State<MapLayout> {
   final List<String> imgMaps = [
     "assets/img/Plano.png", // Mapa principal
     "assets/img/PlanoParking.png", // Mapa de parking
+    "assets/img/Imagen1.jpg"
   ];
 
   @override
