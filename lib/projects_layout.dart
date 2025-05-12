@@ -10,6 +10,7 @@ import 'custom_widgets/line_painter.dart';
 import 'model/net/net_projects.dart';
 import 'project_individual_layout.dart';
 
+
 //relacionamos el nombre de la especialidad con su id esto nos facilita 
 //el filtrar los proyectos por curso
 
@@ -19,6 +20,7 @@ const Map<String,int>spe_idspe ={
   "GM Carrocería" : 3,
   "GM Motocicletas" : 2
 };
+
 //classe para representaar los proyectos en la app
 class ProjectsLayout extends StatefulWidget {
   ProjectsLayout({
@@ -232,16 +234,19 @@ class _ProjectsLayout extends State<ProjectsLayout>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // Sección superior con los logos de la aplicación
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // Logo principal de Monlau
                     SizedBox(
                       width: 100,
                       height: 90,
                       child: Image.asset('assets/img/logomonlau.png'),
                     ),
+                    // Logo secundario
                     SizedBox(
                       width: 100,
                       height: 90,
@@ -250,10 +255,13 @@ class _ProjectsLayout extends State<ProjectsLayout>
                   ],
                 ),
               ),
+
+              // Fila con las pestañas de navegación y el filtro desplegable
               Padding(
                 padding: const EdgeInsets.only(left: 13.0),
                 child: Row(
                   children: [
+                    // Contenedor expandido para las pestañas
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -263,80 +271,91 @@ class _ProjectsLayout extends State<ProjectsLayout>
                               border: Border(
                                   bottom: BorderSide(color: Colors.transparent)),
                             ),
+                            // Barra de pestañas personalizada
                             child: TabBar(
-                              controller: _tabController,
-                              indicator: const BoxDecoration(),
-                              dividerColor: Colors.transparent,
-                              indicatorColor: Colors.blue,
-                              labelColor: Colors.blue,
-                              unselectedLabelColor: Colors.black,
+                              controller: _tabController, // Controlador para gestionar las pestañas
+                              indicator: const BoxDecoration(), // Sin indicador visual
+                              dividerColor: Colors.transparent, // Sin divisor
+                              indicatorColor: Colors.blue, // Color del indicador activo
+                              labelColor: Colors.blue, // Color del texto activo
+                              unselectedLabelColor: Colors.black, // Color del texto inactivo
                               labelPadding: EdgeInsets.symmetric(
-                                  horizontal: MediaQuery.of(context).size.width * 0.02, vertical: 0),
-                              isScrollable: true,
-                              tabAlignment: TabAlignment.start,
+                                  horizontal: MediaQuery.of(context).size.width * 0.02,
+                                  vertical: 0), // Padding adaptable
+                              isScrollable: true, // Permite scroll si hay muchas pestañas
+                              tabAlignment: TabAlignment.start, // Alineación a la izquierda
                               tabs: const [
-                                Tab(text: "Proyectos"),
-                                Tab(text: "MonlauTech"),
+                                Tab(text: "Proyectos"), // Primera pestaña
+                                Tab(text: "MonlauTech"), // Segunda pestaña
                               ],
                             ),
                           ),
                         ],
                       ),
                     ),
+
+                    // Selector desplegable para filtrado
                     Padding(
-                        padding: EdgeInsets.only(right: 10),
+                      padding: EdgeInsets.only(right: 10),
                       child: DropdownButton<String>(
                         value: _filter.contains(_filterSelectOption)
                             ? _filterSelectOption
-                            : null,
-                        hint: const Text("Selecciona una opción"),
-                        icon: const Icon(Icons.arrow_drop_down, color: Colors.black),
-                        dropdownColor: Colors.white,
-                        style: const TextStyle(color: Colors.black),
-                        underline: Container(),
-                        onChanged: (String? newValue) {
+                            : null, // Valor seleccionado
+                        hint: const Text("Selecciona una opción"), // Texto por defecto
+                        icon: const Icon(Icons.arrow_drop_down, color: Colors.black), // Icono
+                        dropdownColor: Colors.white, // Color del menú desplegable
+                        style: const TextStyle(color: Colors.black), // Estilo del texto
+                        underline: Container(), // Elimina la línea inferior
+                        onChanged: (String? newValue) { // Callback al seleccionar
                           setState(() {
                             _filterSelectOption = newValue!;
                           });
-                          _filterProjectos(widget.current);
+                          _filterProjectos(widget.current); // Filtra los proyectos
                         },
                         items: _filter.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value, style: const TextStyle(color: Colors.black)),
                           );
-                        }).toList(),
+                        }).toList(), // Opciones del menú
                       ),
                     )
                   ],
                 ),
               ),
+
+              // Línea decorativa bajo los filtros
               Row(
                 children: [
                   CustomPaint(
                     size: Size(100, 10),
-                    painter: LinePainter(),
+                    painter: LinePainter(), // Widget personalizado para la línea
                   ),
                 ],
               ),
+
+              // Campo de búsqueda de proyectos
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
-                  controller: _searchController,
+                  controller: _searchController, // Controlador para el texto de búsqueda
                   decoration: InputDecoration(
-                    hintText: 'Buscar proyecto',
-                    //prefixIcon: const Icon(Icons.search),
+                    hintText: 'Buscar proyecto', // Placeholder
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10), // Bordes redondeados
                     ),
                   ),
                 ),
               ),
-             
+
+              // Contenedor principal para el contenido de las pestañas
               Expanded(
                 child: TabBarView(
-                  controller: _tabController,
-                  children: [_projects(), _monlauTech()],
+                  controller: _tabController, // Mismo controlador que el TabBar
+                  children: [
+                    _projects(), // Vista de proyectos
+                    _monlauTech() // Vista de MonlauTech
+                  ],
                 ),
               ),
             ],
@@ -346,50 +365,52 @@ class _ProjectsLayout extends State<ProjectsLayout>
     );
   }
 
+// Widget que construye la lista de proyectos
   Widget _projects() {
     return ListView.builder(
-      controller: widget.scController,
-      padding: EdgeInsets.zero,
-      itemCount: widget.projects.length, // Usar la lista filtrada
+      controller: widget.scController, // Controlador de scroll
+      padding: EdgeInsets.zero, // Sin padding
+      itemCount: widget.projects.length, // Número de proyectos
       itemBuilder: (context, index) {
         return InkWell(
-          onTap: () {
+          onTap: () { // Al hacer tap en un proyecto
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => ProjectIndividualLayout(
-                  project: widget.projects[index], // Usar la lista filtrada
+                  project: widget.projects[index], // Pasa el proyecto seleccionado
                 ),
               ),
             );
           },
           child: ProjectCards(
-            projecto:widget.projects[index], // Usar la lista filtrada
+            projecto: widget.projects[index], // Tarjeta del proyecto
           ),
         );
       },
     );
   }
 
+// Widget que construye la lista de proyectos MonlauTech
   Widget _monlauTech() {
     return ListView.builder(
-      shrinkWrap: true,
-      padding: EdgeInsets.zero,
-      itemCount: widget.monlauTechPrj.length,
+      shrinkWrap: true, // Ajusta el tamaño al contenido
+      padding: EdgeInsets.zero, // Sin padding
+      itemCount: widget.monlauTechPrj.length, // Número de proyectos MonlauTech
       itemBuilder: (context, index) {
         return InkWell(
-          onTap: () {
+          onTap: () { // Al hacer tap en un proyecto
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => ProjectIndividualLayout(
-                  project: widget.monlauTechPrj[index],
+                  project: widget.monlauTechPrj[index], // Pasa el proyecto seleccionado
                 ),
               ),
             );
           },
           child: ProjectCards(
-            projecto: widget.monlauTechPrj[index],
+            projecto: widget.monlauTechPrj[index], // Tarjeta del proyecto
           ),
         );
       },

@@ -50,14 +50,6 @@ class SpeakersPopUpCArd extends StatelessWidget {
                           );
                         }
                     ),
-                    /*
-                    Text(
-                      '${speakers.name} ${speakers.surname1}',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),*/
                     const SizedBox(height: 8),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
