@@ -7,9 +7,12 @@ import 'package:http/http.dart' as http;
 
 
 //clase para cargar los projectos tanto normales como monlautech
+//pero con campos adicionales para establecer filtros
 class NetFilterProjects extends Netload<Proyecto> {
-  String where="";
-  String value = "";
+  String where="";//campo por el qual filtrar
+  String value = ""; //valor del campo de los elemntos deseados
+  //lo demas funciona como cualquier objecto netload fetch_items caarga los objectos aplicando el filtro desde la api
+  //fetch_pages consulta la cantidad de paginas de la consulta con el filtro
   NetFilterProjects(int limit):
     super(limit,"projectsFilterPages","projects");
 

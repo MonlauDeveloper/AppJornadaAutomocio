@@ -3,7 +3,7 @@ import 'package:app_maquinista/model/net/Netload.dart';
 import 'package:app_maquinista/model/net/net_projects.dart';
 import 'package:app_maquinista/model/projectos.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
+//carga especifica de los pryectos monlautech
 class NetMonalautech extends NetProjects{
   NetMonalautech(int limit) :super(limit,"monlautechPages","monlautech");
 

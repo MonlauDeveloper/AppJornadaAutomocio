@@ -1,1 +1,1 @@
-enum Role {USER,ADMIN,COMPANIE,OTHER}
+enum Role {USER,ADMIN,COMPANIE,OTHER} // esto era para los usuarios ¿a lo mejor tine uso cuando la app tenga login?

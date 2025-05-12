@@ -1,6 +1,6 @@
 import 'package:app_maquinista/model/projectos.dart';
 import 'package:app_maquinista/model/students.dart';
-
+//lo mismo que la classe companies pero para las pruebas dinamicas
 class DinamicTest extends Proyecto{
   String initTime;
   String endDate;

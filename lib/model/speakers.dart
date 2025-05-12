@@ -1,3 +1,4 @@
+//lo mismo que la classe companies pero para los/las ponentes
 class Speakers{
   String name;
   String surname1;
@@ -9,6 +10,7 @@ class Speakers{
       this.surname1,
       this.surname2,
       );
+  //metodo para cojer el nombre completo 
   String get_all_name(){
     return this.name + " " + this.surname1 + " " + this.surname2;
   }
