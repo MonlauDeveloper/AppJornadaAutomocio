@@ -1,7 +1,7 @@
 import 'package:app_maquinista/model/roles.dart';
 import 'package:app_maquinista/model/users.dart';
 import 'package:flutter/cupertino.dart';
-
+//clsse de las companias en esto se tranforma el json de la api
 class Companies{
   String name;
   User agent;
@@ -16,6 +16,7 @@ class Companies{
       this.web,
       this.img_url
       );
+      //constructor tipo factory para crear una nstacia a partir de un json
   factory Companies.fromJson (Map<String, dynamic> com){
     String server = "https://jornadaautomocion.alumnes-monlau.com/storage/photos/";
     if (com["logo_url"].toString().contains("http")){
